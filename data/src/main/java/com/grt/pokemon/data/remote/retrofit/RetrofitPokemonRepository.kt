@@ -10,8 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import com.google.gson.GsonBuilder
-import com.grt.pokemon.data.UtilsPokemons
-import kotlin.random.Random
 
 /**
  * Created por Gema Rosas Trujillo

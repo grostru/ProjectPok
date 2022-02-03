@@ -6,7 +6,7 @@ import com.grt.pokemon.ui.gallery.GalleryViewModel
 import com.grt.pokemon.ui.home.HomeViewModel
 import com.grt.pokemon.ui.main.MainViewModel
 import com.grt.pokemon.ui.profile.ProfileViewModel
-import com.grt.pokemon.ui.share.ShareViewModel
+import com.grt.pokemon.ui.superfavorito.SuperFavoritoViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 /**
@@ -41,6 +41,6 @@ val uiModule = module {
         GalleryViewModel()
     }
     viewModel {
-        ShareViewModel(get())
+        SuperFavoritoViewModel(get())
     }
 }

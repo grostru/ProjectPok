@@ -16,6 +16,10 @@ class MockLocalRepository(private val context: Context) : EditPokemonsRepository
        map.remove(pokemonModel.id.toInt())
     }
 
+    override suspend fun deletePokemons() {
+        map.clear()
+    }
+
     override suspend fun savePokemons(vararg pokemons: PokemonModel) {
         pokemons.forEach { pok ->
             val imageBitmap = Picasso.with(context).load(pok.url_image_default).get()
@@ -31,7 +35,11 @@ class MockLocalRepository(private val context: Context) : EditPokemonsRepository
     }
 
     override suspend fun getPokemons(): Result<List<PokemonModel>> {
-       return Result.success(map.values.toList())
+        var listPokemons = map.values.toList()
+        
+       return Result.success(listPokemons.sortedBy {
+           it.name
+       })
     }
 
 }

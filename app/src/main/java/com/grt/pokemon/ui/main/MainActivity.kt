@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
 
             appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.nav_home, R.id.nav_favorites, R.id.nav_profile, R.id.nav_gallery, R.id.nav_share), drawerLayout
+                setOf(R.id.nav_home, R.id.nav_favorites, R.id.nav_profile, R.id.nav_gallery, R.id.nav_superfavorito), drawerLayout
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)

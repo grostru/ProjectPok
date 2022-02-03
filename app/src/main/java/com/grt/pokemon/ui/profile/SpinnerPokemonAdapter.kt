@@ -21,23 +21,16 @@ class SpinnerPokemonAdapter(context: Context, textViewResourceId: Int, val list:
     textViewResourceId,
     list
 ) {
+
     override fun getCount() = list.size
 
     override fun getItem(position: Int) = list[position]
 
-    override fun getItemId(position: Int) = if (getCount()== 0) 0 else list[position].id.toLong()
+    override fun getItemId(position: Int) = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return (super.getDropDownView(position, convertView, parent) as TextView).apply {
             text = list[position].name.uppercase()
-
-            //Cada vez que seleccionemos un elemento de la lista, mostramos la foto del Pokemon
-            // Super Super Star seleccionado
-            val imgFile = File(list[position].url_image_default)
-            if (imgFile.exists()) {
-                val myBitmap = BitmapFactory.decodeFile(imgFile.path)
-                binding.ivPokSSStar.setImageBitmap(myBitmap)
-            }
         }
     }
 

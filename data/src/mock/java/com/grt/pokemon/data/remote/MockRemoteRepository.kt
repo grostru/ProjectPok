@@ -16,28 +16,30 @@ class MockRemoteRepository()  : GetPokemonsRepository {
     override suspend fun getPokemons(): Result<List<PokemonModel>> {
         delay(2000L)
         val listPokemon = mutableListOf<PokemonModel>()
-        repeat(40) {
-            val factor = if (it % 2 == 0)
+        var i = 1
+        while (i < 45){
+            val factor = if (i % 2 == 0)
                 1
             else
                 -1
 
             val pok = PokemonModel(
-                id = it,
-                name = "Name: $it",
-                weight = it,
-                height = it,
-                base_experience = it,
-                is_default = it % 2 == 0,
-                forms = "Forma: $it",
-                species = "Especie: $it",
-                url_image_default="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$it.png",
-                favorite = it % 2 == 0,
-                abilities = "Ability: $it: con Slot:$it \n Ability2: $it: con Slot2:$it \n",
-                types = "Type: $it: con Slot:$it \n Type2: $it: con Slot2:$it \n"
+                id = i,
+                name = "Name: $i",
+                weight = i,
+                height = i,
+                base_experience = i,
+                is_default = i % 2 == 0,
+                forms = "Forma: $i",
+                species = "Especie: $i",
+                url_image_default="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
+                favorite = i % 2 == 0,
+                abilities = "Ability: $i \n Ability2: $i \n",
+                types = "Type: $i \n Type2: $i \n"
             )
 
             listPokemon.add(pok)
+            i++
         }
 
         return Result.success(listPokemon)

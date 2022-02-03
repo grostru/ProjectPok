@@ -15,19 +15,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.grt.pokemon.R
 import com.grt.pokemon.domain.model.PokemonModel
-import com.grt.pokemon.ui.dialog.DialogData
 import com.grt.pokemon.ui.dialog.DialogFragment
-import com.grt.pokemon.ui.share.ShareFragment
-import com.grt.pokemon.ui.share.ShareFragmentDirections
+import com.grt.pokemon.ui.superfavorito.SuperFavoritoFragment
 import kotlinx.coroutines.launch
 
 
 /**
  * Created por Gema Rosas Trujillo
  * 28/01/2022
- * Clase encargada de la opción de Menu Perfil, en ella se persisten 5 datos, uno de los
- * cuales está incluido en un Spinner que hace que se cambie una imagen con el Pokemon Super
- * Favorito seleccionado.
+ * Clase encargada de la opción de Menu Perfil, en ella se persisten 4 datos, uno de los cuales
+ * te permite seleccionar un pokemon super favorito de un spinner, cuya imagen será mostrada
+ * en la opción de menu de Tu Pokemon Super Favorito
  */
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>() {
 
@@ -76,6 +74,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
         spinner = binding.spPokemons
         val idPos = if (star == "") 0  else star.toInt() as Int
         spinner.setSelection(idPos, true)
+
     }
 
     private fun setupBinding() {
@@ -86,8 +85,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
             if (!listPokemon.isNullOrEmpty()) {
 
                 spPokemons.adapter = vmHome.obsListPokemons.value?.let {
-                    SpinnerPokemonAdapter(requireContext(), R.layout.spinner_pokemons, it, binding)
+                    val listaSpinner = listPokemon.sortedBy {
+                        it.name
+                    }
+                    SpinnerPokemonAdapter(requireContext(), R.layout.spinner_pokemons, listaSpinner, binding)
                 }
+
 
                 // Evento del botón Crear Perfil
                 btnCrearPerfil.setOnClickListener {
@@ -114,7 +117,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
                 // se muestra un mensaje indicándole que antes a de iniciar la aplicación.
                 // En esta pestaña se persiste un Spinner para que el usuario almacene en su Perfil
                 // su Pokemon Super Favorito y por ello este mensaje
-                dialogMessage.show(parentFragmentManager, ShareFragment::class.java.name, "Aún no ha descargado la Lista de Pokemons"){
+                dialogMessage.show(parentFragmentManager, SuperFavoritoFragment::class.java.name, "Aún no ha descargado la Lista de Pokemons"){
                     findNavController().navigate(ProfileFragmentDirections.actionNavProfileToNavHome())
                     dialogMessage.dismiss(parentFragmentManager)
                 }

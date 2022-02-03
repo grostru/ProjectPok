@@ -24,7 +24,7 @@
     <string name="email">Email</string>
     <string name="pokemon_super_star">Selecciona tu Pokemon Súper Favorito</string>
     <string name="super_super_star">Tu Pokemon Súper Favorito</string>
-    <string name="crear_perfil">Crear Perfil</string>
+    <string name="crear_perfil">Guardar Perfil</string>
 
     <!--Cadenas para manejar el dialog error-->
     <string name="dialog_title">Mensaje</string>

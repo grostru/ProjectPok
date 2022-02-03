@@ -1,23 +1,25 @@
 package com.grt.pokemon.ui.profile
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.grt.pokemon.common.BaseFragment
-import com.grt.pokemon.databinding.FragmentProfileBinding
-import com.grt.pokemon.ui.home.HomeViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-
+import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.grt.pokemon.R
+import com.grt.pokemon.common.BaseFragment
+import com.grt.pokemon.databinding.FragmentProfileBinding
 import com.grt.pokemon.domain.model.PokemonModel
 import com.grt.pokemon.ui.dialog.DialogFragment
+import com.grt.pokemon.ui.home.HomeViewModel
 import com.grt.pokemon.ui.superfavorito.SuperFavoritoFragment
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 
 /**
@@ -90,6 +92,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
                     }
                     SpinnerPokemonAdapter(requireContext(), R.layout.spinner_pokemons, listaSpinner, binding)
                 }
+
+                // Evento del Spinner
+                spPokemons.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
+                        val pokemonModel = spPokemons.selectedItem as PokemonModel
+                        val imgFile = File(pokemonModel.url_image_default)
+                        if (imgFile.exists()) {
+                            val myBitmap = BitmapFactory.decodeFile(imgFile.path)
+                            ivPokSSStar.setImageBitmap(myBitmap)
+                        }
+                    }
+
+                    override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                        return
+                    }
+                })
 
 
                 // Evento del botón Crear Perfil

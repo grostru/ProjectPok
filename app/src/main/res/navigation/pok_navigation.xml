@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/nav_superfavorito"
         android:name="com.grt.pokemon.ui.superfavorito.SuperFavoritoFragment"
-        android:label="Compartir Favorito"
+        android:label="Favorito"
         tools:layout="@layout/fragment_superfavorito" >
         <action
             android:id="@+id/action_nav_share_to_nav_home"

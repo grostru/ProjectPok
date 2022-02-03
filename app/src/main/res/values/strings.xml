@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">POKEMON</string>
+    <string name="nav_header_subtitle">gema.ros.t@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Perfil</string>
+
+    <!--Cadenas para manejar el dialog error-->
+    <string name="title_home">Inicio</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_favorite">Favoritos</string>
+    <string name="title_gallery">Galería de Imágenes</string>
+    <string name="title_compartir">Compartir tu Pokemon Favorito</string>
+    <string name="nombre">Nombre: </string>
+    <string name="especie">Especie: </string>
+    <string name="peso">Peso: </string>
+    <string name="altura">Altura: </string>
+    <string name="isDefault">Por Defecto:  </string>
+    <string name="abilities">Habilidades:  </string>
+    <string name="types">Tipos:  </string>
+    <string name="forma">Forma: </string>
+    <string name="base_de_experiencia">Experiencia:   </string>
+    <string name="perfil_usuario">Usuario</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="email">Email</string>
+    <string name="pokemon_super_star">Selecciona tu Pokemon Súper Favorito</string>
+    <string name="super_super_star">Tu Pokemon Súper Favorito</string>
+    <string name="crear_perfil">Crear Perfil</string>
+
+    <!--Cadenas para manejar el dialog error-->
+    <string name="dialog_title">Mensaje</string>
+    <string name="dialog_error_message">Se ha producido un Error</string>
+    <string name="dialog_error_accept">Aceptar</string>
+</resources>

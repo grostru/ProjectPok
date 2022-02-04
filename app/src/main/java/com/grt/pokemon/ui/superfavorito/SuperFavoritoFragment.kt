@@ -1,5 +1,6 @@
 package com.grt.pokemon.ui.superfavorito
 
+import android.R.attr
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -18,10 +19,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.grt.pokemon.data.UtilsPokemons
 import com.grt.pokemon.databinding.FragmentSuperfavoritoBinding
+import com.grt.pokemon.domain.model.PokemonModel
 import com.grt.pokemon.ui.dialog.DialogFragment
 import kotlinx.coroutines.launch
 
 import java.io.*
+import android.R.attr.bitmap
+import android.content.Context
+import android.os.Build
+
+import android.provider.MediaStore
+import java.text.SimpleDateFormat
+import java.util.*
+import android.content.pm.PackageManager
+
+
+
+
 
 /**
  * Created por Gema Rosas Trujillo
@@ -63,7 +77,8 @@ class SuperFavoritoFragment : BaseFragment<FragmentSuperfavoritoBinding, SuperFa
                     it.id == idPok.toInt()
                 }
 
-                val imgFile = File(listaIdPok[0]?.url_image_default)
+                val pokemon = listaIdPok[0]
+                val imgFile = File(pokemon?.url_image_default)
                 if (imgFile.exists()) {
                     val myBitmap = BitmapFactory.decodeFile(imgFile.path)
                     binding.ivSSStar.setImageBitmap(myBitmap)
@@ -79,7 +94,6 @@ class SuperFavoritoFragment : BaseFragment<FragmentSuperfavoritoBinding, SuperFa
                                 dialogMessage.dismiss(parentFragmentManager)
                             }
                         }
-
                     }
                 }
 
@@ -101,22 +115,30 @@ class SuperFavoritoFragment : BaseFragment<FragmentSuperfavoritoBinding, SuperFa
     fun share() {
 
         val bitMap : Bitmap = binding.ivSSStar.drawable.toBitmap()
-        val bos : ByteArrayOutputStream = ByteArrayOutputStream()
+        val bos = ByteArrayOutputStream()
         bitMap.compress(Bitmap.CompressFormat.JPEG, 100, bos)
         val file = File(requireContext().externalCacheDir, "imagenPokemon.png")
         try {
             file.createNewFile()
-            val fos : FileOutputStream = FileOutputStream(file)
+            val fos = FileOutputStream(file)
             fos.write(bos.toByteArray())
         } catch (e : IOException) {
             e.printStackTrace();
         }
 
-        val intent= Intent(Intent.ACTION_SEND)
-        intent.setType("image/jpeg")
-        intent.setPackage("com.whatsapp")
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(file.path))
-
-        startActivity(Intent.createChooser(intent, "Share Image"))
+        val nombrePaquete = "com.whatsapp"
+        if(UtilsPokemons.estaInstaladaAplicacion(nombrePaquete, requireContext())){
+            val intent= Intent(Intent.ACTION_SEND)
+            intent.setType("image/*")
+            intent.setPackage(nombrePaquete)
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(file.path))
+            startActivity(Intent.createChooser(intent, "Share Image"))
+            startActivity(intent) //Abre aplicacion.
+        } else {
+            dialogMessage.show(parentFragmentManager, SuperFavoritoFragment::class.java.name, "No puede compartir su Imagen. No tiene instalado Whatsapp"){
+                findNavController().navigate(SuperFavoritoFragmentDirections.actionNavShareToNavHome())
+                dialogMessage.dismiss(parentFragmentManager)
+            }
+        }
     }
 }

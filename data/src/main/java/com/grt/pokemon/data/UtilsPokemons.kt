@@ -2,6 +2,7 @@ package com.grt.pokemon.data
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -62,5 +63,15 @@ object UtilsPokemons  {
             if (!listaResult.contains(rand)) listaResult.add(rand)
         }
         return listaResult
+    }
+
+    fun estaInstaladaAplicacion(nombrePaquete: String, context: Context): Boolean {
+        val pm: PackageManager = context.getPackageManager()
+        return try {
+            pm.getPackageInfo(nombrePaquete, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
     }
 }
